@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>08_条件渲染</title>
+</head>
+<body>
+<!--
+切换一个元素:
+  v-if
+  v-else
+  v-show
+切换多个元素
+  <template v-if="ok">  //不能用v-show
+注意:
+  如果需要频繁切换 v-show 较好，如果在运行时条件不大可能改变 v-if 较好
+-->
+
+
+<div id="demo">
+  <p v-if="ok">{{msg}}</p>
+  <p v-else>{{msg.toUpperCase()}}</p>
+  <button @click="ok=!ok">change</button>
+  <p v-show="ok">show</p>
+  <template v-if="ok">
+    <p>段落一</p>
+    <p>段落二</p>
+    <p>段落三</p>
+  </template>
+  <!--即使设置了OK，也只会一直保持OK初始值，不会再改变-->
+  <template v-show="ok">
+    <p>段落一1</p>
+    <p>段落二1</p>
+    <p>段落三1</p>
+  </template>
+</div>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#demo',
+    data: {
+      msg: 'atguigu',
+      ok: true
+    }
+  })
+</script>
+</body>
+</html>

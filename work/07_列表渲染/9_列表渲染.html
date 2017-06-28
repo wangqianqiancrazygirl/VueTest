@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>09_列表渲染</title>
+</head>
+<body>
+
+<!--
+1. 遍历显示数组 : v-for / index
+2. 遍历显示对象 : v-for / key
+-->
+
+<div id="demo">
+
+  <h2>测试: v-for 遍历数组</h2>
+  <ul>
+    <li v-for="(p, index) in filterPersons">
+      {{index}}--{{p.name}}--{{p.age}}
+      --<button @click="removeP(p)">删除</button>
+      --<button @click="addP(p, {id:4,name:'xiaowa',age:12})">更新</button>
+    </li>
+  </ul>
+  <h2>测试: v-for 遍历对象</h2>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+  new Vue({
+    el: '#demo',
+    data: {
+      persons : [
+        {id : 1, name : 'xiaohua', age : 21},
+        {id : 2, name : 'xiaoxi', age : 21},
+        {id : 3, name : 'xiaa', age : 21}
+      ]
+    },
+    methods:{
+      removeP (p) {
+        var index = this.persons.indexOf(p);
+        this.persons.splice(index, 1)
+      },
+      addP (p, newP) {
+        var index = this.persons.indexOf(p);
+        this.persons.splice(index, 1, newP)
+      }
+    },
+    computed: {
+      filterPersons () {
+        return this.persons.filter(function (p) {
+          return p.name.indexOf('o')>=0
+        })
+      }
+    }
+  })
+</script>
+</body>
+</html>

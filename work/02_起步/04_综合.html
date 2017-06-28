@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>04_综合</title>
+</head>
+<body>
+
+<!--
+  综合使用以下技术:
+  1. 页面指令:
+    v-model
+    @click
+    @keyup.enter
+    v-for / $index
+    v-text
+  2. Vue对象
+    初始化数据: data
+    事件处理函数: methods
+-->
+<div id="app">
+  <input type="text" v-model="inputTodo" @keyup.enter="showTodo">
+  <ul>
+    <li v-for="(todo, index) in todos">
+      {{index}}--{{todo.name}}
+      <Button @click="removeTodo(index)">X</Button>
+    </li>
+  </ul>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el : '#app',
+    data : {
+      inputTodo : '',
+      todos : [
+        {id : 2, name : '吃饭'},
+        {id : 3, name : '睡觉'},
+        {id : 4, name : '打豆豆'}
+      ]
+    },
+    methods : {
+      showTodo () {
+        //获取输入的inputTodo
+        var inputTodo = this.inputTodo.trim();
+        //判断inputTodo是否符合
+        if(!inputTodo){
+          return;
+        }
+        //添加进TODOs里
+        this.todos.unshift({
+          id : Date.now(),
+          name : inputTodo
+        });
+        //清除输入框中的内容
+        this.inputTodo = '';
+      },
+      removeTodo (index) {
+        this.todos.splice(index, 1);
+      }
+    }
+
+  })
+</script>
+</body>
+</html>
